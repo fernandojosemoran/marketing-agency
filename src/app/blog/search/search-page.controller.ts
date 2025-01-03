@@ -1,5 +1,5 @@
+import { IPostApi } from "@/domain/interfaces/blog.api.interface";
 import BlogService from "@/app/shared/services/blog.service";
-import { Dispatch } from "@reduxjs/toolkit";
 
 class SearchPageController {
 
@@ -7,8 +7,8 @@ class SearchPageController {
         private readonly blogService: BlogService
     ) {}
 
-    public BlogSearch(slug: string, dispatch: Dispatch): void {
-        this.blogService.search_blog(slug, dispatch);
+    public BlogSearch(slug: string): Promise<IPostApi[]> {
+        return this.blogService.search_blog(slug);
     }
 
 }

@@ -1,13 +1,13 @@
+import { IDetailPostApi } from "@/domain/interfaces/blog.api.interface";
 import BlogService from "@/app/shared/services/blog.service";
-import { Dispatch } from "@reduxjs/toolkit";
 
 class BlogPostPageController {
     public constructor(
         private readonly blogService: BlogService
     ) {}
 
-    public getBlog(post: string, dispatch: Dispatch): void {
-        this.blogService.getBlog(post, dispatch);
+    public getBlog(post: string): Promise<IDetailPostApi> {
+        return this.blogService.getBlog(post);
     }
 }
 

@@ -23,7 +23,8 @@ class BlogList(APIView):
         if posts.exists():
             serializerPosts = PostListSerializer(
                 small_paginator_results,
-                many=True
+                many=True,
+                context={'request': request}
             )
 
             return paginator.get_paginated_response({'posts': serializerPosts.data})
@@ -72,7 +73,8 @@ class ListPostsByCategoryView(APIView):
 
             paginator = SmallSetPagination()
             result = paginator.paginate_queryset(posts, request)
-            serializer = PostListSerializer(result, many=True)
+            serializer = PostListSerializer(
+                result, many=True, context={'request': request})
 
             return paginator.get_paginated_response({'posts': serializer.data})
         else:
@@ -90,7 +92,7 @@ class PostDetailView(APIView):
         if Post.post_objects.filter(slug=slug).exists():
 
             post = Post.post_objects.get(slug=slug)
-            serializer = PostSerializer(post)
+            serializer = PostSerializer(post, context={'request': request})
             # extraemos la ip del usuario
             address = request.META.get('HTTP_X_FORWARDED_FOR')
 
@@ -127,5 +129,6 @@ class SearchBlogView(APIView):
 
         paginator = LargeSetPagination()
         results = paginator.paginate_queryset(matches, request)
-        serializer = PostListSerializer(results, many=True)
+        serializer = PostListSerializer(
+            results, many=True, context={'request': request})
         return paginator.get_paginated_response({'post_filtered': serializer.data})

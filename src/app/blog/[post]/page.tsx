@@ -1,10 +1,11 @@
 "use client";
 
 import { toggleDarkMode } from "@/infrastructure/helpers/toggle-dark-mode";
-import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IDetailPostApi } from "@/domain/interfaces/blog.api.interface";
 import { useAppDispatch, useAppSelector } from "@/app/shared/hooks";
+import { GET_BLOG } from "@/app/shared/provider/slices/blog/get-blog.slice";
+import { useParams } from "next/navigation";
 
 import BlogPostPageController from "./blog-post-page.controller";
 import BlogService from "@/app/shared/services/blog.service";
@@ -18,6 +19,7 @@ import DOMPurify from 'dompurify';
 const blogRepository: BlogRepositoryImpl = new BlogRepositoryImpl(
   new BlogDataSourceImpl()
 );
+
 const blogService: BlogService = new BlogService(blogRepository);
 const controller: BlogPostPageController = new BlogPostPageController(
   blogService
@@ -77,22 +79,25 @@ const Post = ({ post }: {post: IDetailPostApi}) => {
 
 const BlogPostPage = () => {
   const { post } = useParams();
-  const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const postState: IDetailPostApi = useAppSelector(
-    (state) => state.blog.getBlog.blog
-  );
+
+  const dispatch = useAppDispatch();
+  const postState: IDetailPostApi = useAppSelector((state) => state.blog.getBlog.blog);
 
   useEffect(() => {
     toggleDarkMode();
-    controller.getBlog(post.toLocaleString(), dispatch);
+
+    controller.getBlog(post.toLocaleString())
+    .then(post => dispatch(GET_BLOG(post)))
+    .catch(err => console.log(err));
 
     setInterval(() => {
       if (!postState) return;
 
       setIsLoading(true);
     }, 300);
-  }, []);
+
+  }, [dispatch, postState]);
 
   return (
     <div className="mt-20">

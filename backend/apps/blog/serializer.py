@@ -1,4 +1,4 @@
-from dataclasses import field
+# from dataclasses import field
 from rest_framework import serializers
 from apps.blog.models import Post
 from apps.category.serializers import CategorySerializer
@@ -22,6 +22,20 @@ class PostSerializer(serializers.ModelSerializer):
             'time_stamp',
         ]
 
+    def to_representation(self, instance):
+        #
+        representation = super().to_representation(instance)
+
+        if instance.thumbnail:
+            request = self.context.get('request')
+            if request:
+
+                full_thumbnail_url = request.build_absolute_uri(
+                    instance.thumbnail.url)
+                representation['thumbnail'] = full_thumbnail_url
+
+        return representation
+
 
 class PostListSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
@@ -39,3 +53,16 @@ class PostListSerializer(serializers.ModelSerializer):
             'views',
             'time_stamp',
         ]
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+
+        if instance.thumbnail:
+            request = self.context.get('request')
+            if request:
+
+                full_thumbnail_url = request.build_absolute_uri(
+                    instance.thumbnail.url)
+                representation['thumbnail'] = full_thumbnail_url
+
+        return representation

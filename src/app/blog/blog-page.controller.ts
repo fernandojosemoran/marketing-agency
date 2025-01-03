@@ -1,6 +1,7 @@
 import { ICategoryListAPI } from "@/domain/interfaces/category.api.interface";
 import { Dispatch } from "@reduxjs/toolkit";
 import { GET_CATEGORIES_SUCCESS } from "../shared/provider/slices/categories/categories.slice";
+import { IBlogPostAPI, IPostApi } from "@/domain/interfaces/blog.api.interface";
 
 import CategoryService from "../shared/services/category.service";
 import BlogService from "../shared/services/blog.service";
@@ -17,12 +18,12 @@ class BlogPageController {
         .catch(error => console.log(error));
     }
 
-    public getBlogList(dispatch: Dispatch): void {
-        this.blogService.getBlogList(dispatch);
+    public getBlogList(): Promise<IPostApi[]> {
+        return this.blogService.getBlogList();
     }
 
-    public getBlogListPage(page: number, dispatch: Dispatch): void {
-        this.blogService.getBlogListPage(page, dispatch);
+    public getBlogListPage(page: number): Promise<IBlogPostAPI> {
+        return this.blogService.getBlogListPage(page);
     }
 }
 

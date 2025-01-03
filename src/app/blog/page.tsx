@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { Category } from "@/domain/interfaces/category.api.interface";
 import { useAppDispatch, useAppSelector } from "../shared/hooks";
 import { toggleDarkMode } from "@/infrastructure/helpers/toggle-dark-mode";
+import { useSearchParams } from "next/navigation";
+import { GET_BLOG_LIST_CATEGORIES_PAGE } from "../shared/provider/slices/blog/blog-list-categories-page.slice";
 import { IBlogPostAPI } from "@/domain/interfaces/blog.api.interface";
 
 import CategoriesHeader from "./components/categories-header/CategoriesHeader";
@@ -13,9 +15,8 @@ import BlogService from "../shared/services/blog.service";
 import BlogRepositoryImpl from "@/infrastructure/repositories/blog.repository.impl";
 import BlogDataSourceImpl from "@/infrastructure/datasources/blog.datasource.impl";
 import BlogList from "./components/blog-list/BlogList";
-import useLoading from "../shared/hooks/useLoading";
 import CircleLoader from "../shared/loaders/CircleLoader";
-import { useSearchParams } from "next/navigation";
+import dynamic from "next/dynamic";
 
 const repository: BlogRepositoryImpl = new BlogRepositoryImpl(
   new BlogDataSourceImpl()
@@ -26,7 +27,7 @@ const controller: BlogPageController = new BlogPageController(
   new BlogService(repository)
 );
 
-export default function BlogPage() {
+function BlogPage() {
   const dispatch = useAppDispatch();
 
   const params = useSearchParams();
@@ -40,19 +41,22 @@ export default function BlogPage() {
     (state) => state.blog.blogListCategoriesPage.blogListCategoriesPage
   );
 
-  const { loading: loadingCategories } = useLoading({ data: { type: "object|list", data: categories } });
-  const { loading: loadingPosts } = useLoading({ data: { type: "object|list", data: posts } });
+  const get_blog_list_page = (page: number) => {
+    controller.getBlogListPage(page)
+    .then((posts) => dispatch(GET_BLOG_LIST_CATEGORIES_PAGE(posts)))
+    .catch(error => console.error(error));
+  };
 
   useEffect(() => {
     toggleDarkMode();
     controller.getCategories(dispatch);
-    controller.getBlogListPage(page, dispatch);
+    get_blog_list_page(page);
   }, [dispatch]);
 
   return (
     <div className="pt-10 overflow-x-hidden">
       {
-        loadingPosts && loadingCategories
+        true
         ?
         <div className="absolute bg-[#0c0101be] flex flex-col justify-center items-center w-full h-screen z-50">
           <CircleLoader /> 
@@ -63,9 +67,7 @@ export default function BlogPage() {
           <div className="mx-auto max-w-6xl my-10">
             <BlogList
               posts={posts.results?.posts ?? []}
-              get_blog_list_page={(page: number) =>
-                controller.getBlogListPage(page, dispatch)
-              }
+              get_blog_list_page={get_blog_list_page}
               count={posts.count}
             />
           </div>
@@ -74,3 +76,5 @@ export default function BlogPage() {
     </div>
   );
 }
+
+export default dynamic(() => Promise.resolve(BlogPage), { ssr: false });

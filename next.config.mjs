@@ -35,8 +35,8 @@ const nextConfig = {
           destination: "/blog",
           permanent: false
         }
-      ])
-      // output: "export"
+      ]),
+      output: "export"
 };
 
 export default nextConfig;

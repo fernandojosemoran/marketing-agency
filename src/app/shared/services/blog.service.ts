@@ -1,12 +1,7 @@
 import { Dispatch } from '@reduxjs/toolkit';
+import { IBlogPostAPI, IDetailPostApi, IPostApi } from '@/domain/interfaces/blog.api.interface';
 
 import BlogRepositoryImpl from "@/infrastructure/repositories/blog.repository.impl";
-
-import { BLOG_LIST } from '../provider/slices/blog/blog-list.slice';
-import { BLOG_LIST_CATEGORIES } from '../provider/slices/blog/blog-list-categories.slice';
-import { BLOG_SEARCH } from '../provider/slices/blog/blog-search.slice';
-import { GET_BLOG_LIST_CATEGORIES_PAGE } from '../provider/slices/blog/blog-list-categories-page.slice';
-import { GET_BLOG } from '../provider/slices/blog/get-blog.slice';
 
 interface IBlogService {
     getBlogList(dispatch: Dispatch): void;
@@ -19,34 +14,34 @@ class BlogService implements IBlogService {
         private readonly blogRepository: BlogRepositoryImpl
     ) {}
 
-    public getBlogList(dispatch: Dispatch): void {
-        this.blogRepository.getBlogList()
-        .then(blogs => dispatch(BLOG_LIST(blogs)))
-        .catch(error => console.error(error));
+    public getBlogList(): Promise<IPostApi[]> {
+        return this.blogRepository.getBlogList();
+
+        // dispatch(BLOG_LIST(blogs))
     }
 
-    public get_blog_list_category(slug: string, dispatch: Dispatch) {
-        this.blogRepository.getBlogListCategories(slug)
-        .then(posts => dispatch(BLOG_LIST_CATEGORIES(posts)))
-        .catch(error => console.error(error));
+    public get_blog_list_category(slug: string): Promise<IPostApi[]> {
+        return this.blogRepository.getBlogListCategories(slug);
+
+        // dispatch(BLOG_LIST_CATEGORIES(posts))
     }
 
-    public search_blog(slug: string, dispatch: Dispatch): void {
-        this.blogRepository.searchBlog(slug)
-        .then(posts => dispatch(BLOG_SEARCH(posts)))
-        .catch(error => console.error(error));
+    public search_blog(slug: string): Promise<IPostApi[]> {
+        return this.blogRepository.searchBlog(slug);
+
+        // dispatch(BLOG_SEARCH(posts))
     }
 
-    public getBlogListPage(page: number, dispatch: Dispatch): void {
-        this.blogRepository.getBlogListPage(page)
-        .then(posts => dispatch(GET_BLOG_LIST_CATEGORIES_PAGE(posts)))
-        .catch(error => console.error(error));
+    public getBlogListPage(page: number): Promise<IBlogPostAPI> {
+        return this.blogRepository.getBlogListPage(page);
+
+        // GET_BLOG_LIST_CATEGORIES_PAGE(posts))
     }
 
-    public getBlog(slug: string, dispatch: Dispatch): void {
-        this.blogRepository.getBlog(slug)
-        .then(blog => dispatch(GET_BLOG(blog)))
-        .catch(error => console.error(error));
+    public getBlog(slug: string): Promise<IDetailPostApi> {
+        return this.blogRepository.getBlog(slug);
+
+        // GET_BLOG(blog))
     }
 }
 

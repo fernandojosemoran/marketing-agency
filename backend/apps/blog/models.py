@@ -2,6 +2,9 @@ from django.db import models
 from apps.category.models import Category
 from django.utils import timezone
 from ckeditor.fields import RichTextField
+
+from urllib.parse import urljoin
+from django.conf import settings
 # from ckeditor_uploader.fields import RichTextUploadingField ---> search
 
 
@@ -9,7 +12,7 @@ from ckeditor.fields import RichTextField
 
 
 def blog_thumbnail_directory(intance, file_name):
-    return 'upload/blog/{0}/{1}'.format(intance.title, file_name)
+    return f'upload/blog/{intance.title}/{file_name}'
 
 
 class Post(models.Model):

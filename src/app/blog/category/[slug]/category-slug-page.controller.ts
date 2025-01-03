@@ -3,6 +3,7 @@ import { GET_CATEGORIES_SUCCESS } from '../../../shared/provider/slices/categori
 
 import BlogService from '../../../shared/services/blog.service';
 import CategoryService from '../../../shared/services/category.service';
+import { IBlogPostAPI, IPostApi } from '@/domain/interfaces/blog.api.interface';
 
 class CategorySlugPageController { 
     public constructor(
@@ -16,8 +17,12 @@ class CategorySlugPageController {
         .catch(error => console.error(error));
     }
 
-    public get_blog_list_category(slug: string, dispatch: Dispatch): void {
-        this.blogService.get_blog_list_category(slug, dispatch);
+    public get_blog_list_category(slug: string): Promise<IPostApi[]> {
+        return this.blogService.get_blog_list_category(slug);
+    }
+
+    public getBlogListPage(page: number): Promise<IBlogPostAPI> {
+        return this.blogService.getBlogListPage(page);
     }
 }
 
