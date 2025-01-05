@@ -1,0 +1,15 @@
+node_modules
+.next
+.git
+.env
+bun.lockb
+README.md
+dockerfile.django
+dockerfile.web
+docker-compose.yaml
+backend/env
+backend/media
+backend/static
+backend/db.sqlite3
+backend/core/.env
+
