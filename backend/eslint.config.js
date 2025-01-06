@@ -5,14 +5,14 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { 
+  {
     ignores: [
       'dist',
       'static',
       'node_modules',
       'coverage',
       'env'
-    ] 
+    ]
   },
   {
     extends: [ js.configs.recommended, ...tseslint.configs.recommended ],
@@ -33,7 +33,7 @@ export default tseslint.config(
       ],
       'semi': [ 'error', 'always' ], // <-- allowed don't use a ; to end of each logic
       'array-bracket-spacing': [ 'error', 'always' ],  // <-- no allowed don't use a spaces in the arrays [ data ]
-      'keyword-spacing': [ 'error', { before: true,  after: true } ], // <-- no allowed don't add a space after and before of a { } 
+      'keyword-spacing': [ 'error', { before: true, after: true } ], // <-- no allowed don't add a space after and before of a { } 
       'no-shadow-restricted-names': 'error',                     // <-- no allowed to use reserved words like variables example undefined, NaN,
       'object-curly-spacing': [ 'error', 'always' ],             // <-- no allowed that {data} don't has a spacing like this { data }
       'no-sequences': [ 'error', { allowInParentheses: true } ], // <-- https://eslint.org/docs/latest/rules/no-sequences

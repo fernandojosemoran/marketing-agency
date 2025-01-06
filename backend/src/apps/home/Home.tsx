@@ -1,13 +1,11 @@
-import useBearStore from "../shared/provider/store";
+import Sidebar from "../shared/components/sidebar/Sidebar";
 import HomeLayout from "./Layout";
 
 function Home() {
-  const bear = useBearStore();
 
   return (
     <HomeLayout>
-      <h1>{bear.bears}</h1>
-      <button onClick={() => bear.increase(bear.bears + 1)}>click me</button>
+      <Sidebar />
     </HomeLayout>
   );
 }
