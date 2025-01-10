@@ -236,3 +236,6 @@ marketing-agency/bun.lockb
 backend/bun.lockb
 marketing-agency/coverage
 
+# docker
+
+.env
