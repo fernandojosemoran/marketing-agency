@@ -6,17 +6,9 @@ import { useAppDispatch, useAppSelector } from "@/app/shared/hooks";
 import { IPostApi } from "@/domain/interfaces/blog.api.interface";
 import { BLOG_SEARCH } from "@/app/shared/provider/slices/blog/blog-search.slice";
 
-import SearchPageController from "./search-page.controller";
-import BlogService from "@/app/shared/services/blog.service";
-import BlogRepositoryImpl from "@/infrastructure/repositories/blog.repository.impl";
-import BlogDataSourceImpl from "@/infrastructure/datasources/blog.datasource.impl";
 import dynamic from "next/dynamic";
+import controller from "./search-page.controller";
 
-const blogRepository: BlogRepositoryImpl = new BlogRepositoryImpl(
-  new BlogDataSourceImpl()
-);
-const blogService: BlogService = new BlogService(blogRepository);
-const controller: SearchPageController = new SearchPageController(blogService);
 
 const SearchPage = () => {
   const searchParams = useSearchParams();

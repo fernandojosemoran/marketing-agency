@@ -1,14 +1,14 @@
 import { IBlogPostAPI, IDetailPostApi, IPostApi, IPostApiResults } from "@/domain/interfaces/blog.api.interface";
 import { ICategoryListAPI } from "@/domain/interfaces/category.api.interface";
-import { Env } from "../constants";
 import { ISearchBlogAPI } from "@/domain/interfaces/blog-search.api.interface";
 
 import axios, { AxiosRequestConfig } from "axios";
 
 import BlogDataSource from "@/domain/datasources/blog.datasource";
+import { env } from "../constants";
 
 // hidden dependencies
-const REACT_APP_API_URL: string = Env.REACT_APP_API_URL;
+const REACT_APP_API_URL: string = env.NEXT_PUBLIC_CLIENT_BACKEND_API_URL;
 
 class BlogDataSourceImpl implements BlogDataSource {
     private readonly config: AxiosRequestConfig = {

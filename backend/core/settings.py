@@ -124,9 +124,11 @@ DATABASES = {
         'USER': os.environ.get("POSTGRES_USER"),
         'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
         'HOST': os.environ.get("POSTGRES_HOST"),
-        'PORT': os.environ.get("POSTGRES_PORT"),
+        'PORT': int(os.environ.get("POSTGRES_PORT", 5432)),
     }
 }
+
+# dj_database_url.config(default=os.environ.get("DATABASE_URL"))
 
 
 # Password validation

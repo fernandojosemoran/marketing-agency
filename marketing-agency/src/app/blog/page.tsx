@@ -9,23 +9,12 @@ import { GET_BLOG_LIST_CATEGORIES_PAGE } from "../shared/provider/slices/blog/bl
 import { IBlogPostAPI } from "@/domain/interfaces/blog.api.interface";
 
 import CategoriesHeader from "./components/categories-header/CategoriesHeader";
-import BlogPageController from "./blog-page.controller";
-import CategoryService from "../shared/services/category.service";
-import BlogService from "../shared/services/blog.service";
-import BlogRepositoryImpl from "@/infrastructure/repositories/blog.repository.impl";
-import BlogDataSourceImpl from "@/infrastructure/datasources/blog.datasource.impl";
 import BlogList from "./components/blog-list/BlogList";
 import CircleLoader from "../shared/loaders/CircleLoader";
 import dynamic from "next/dynamic";
+import controller from "./blog-page.controller";
 
-const repository: BlogRepositoryImpl = new BlogRepositoryImpl(
-  new BlogDataSourceImpl()
-);
 
-const controller: BlogPageController = new BlogPageController(
-  new CategoryService(),
-  new BlogService(repository)
-);
 
 function BlogPage() {
   const dispatch = useAppDispatch();

@@ -2,11 +2,17 @@ FROM python:3.12.5
 
 WORKDIR /backend/
 
-COPY /backend/ .
+COPY backend/ .
 
 RUN pip install -r requirements.txt
 
-ENV PORT=8001
+# RUN chmod 777 prepare.py
 
-CMD ["sh", "-c", "python prepare.py && python manage.py collectstatic --noinput && python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:$PORT"]
+# RUN python3 prepare.py
+
+# ENV PORT=8001
+
+# chmod 777 prepare.py && python3 prepare.py
+
+CMD ["sh", "-c", "python3 manage.py collectstatic --noinput && python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:5000"]
 

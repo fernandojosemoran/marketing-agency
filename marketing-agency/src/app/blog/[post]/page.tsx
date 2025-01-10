@@ -7,23 +7,11 @@ import { useAppDispatch, useAppSelector } from "@/app/shared/hooks";
 import { GET_BLOG } from "@/app/shared/provider/slices/blog/get-blog.slice";
 import { useParams } from "next/navigation";
 
-import BlogPostPageController from "./blog-post-page.controller";
-import BlogService from "@/app/shared/services/blog.service";
-import BlogRepositoryImpl from "@/infrastructure/repositories/blog.repository.impl";
-import BlogDataSourceImpl from "@/infrastructure/datasources/blog.datasource.impl";
 import Image from "next/image";
 import moment from "moment";
 import Link from "next/link";
 import DOMPurify from 'dompurify';
-
-const blogRepository: BlogRepositoryImpl = new BlogRepositoryImpl(
-  new BlogDataSourceImpl()
-);
-
-const blogService: BlogService = new BlogService(blogRepository);
-const controller: BlogPostPageController = new BlogPostPageController(
-  blogService
-);
+import controller from "./blog-post-page.controller";
 
 const Post = ({ post }: {post: IDetailPostApi}) => {
   return (

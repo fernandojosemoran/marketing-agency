@@ -7,13 +7,23 @@ apps_base_dir = 'apps'
 def remove_directory(path):
     if os.path.exists(path):
         shutil.rmtree(path)
-        print(f"delete: {path}")
+        print(f"Deleted: {path}")
     else:
-        print(f"directory not exist: {path}")
+        print(f"Directory not exist: {path}")
 
 
 def create_directory(path):
     os.makedirs(path, exist_ok=True)
+
+
+def create_init_file(path):
+    init_file_path = os.path.join(path, '__init__.py')
+    if not os.path.exists(init_file_path):
+        with open(init_file_path, 'w') as f:  # Create an empty __init__.py
+            pass
+        print(f"Created: {init_file_path}")
+    else:
+        print(f"__init__.py already exists: {init_file_path}")
 
 
 def list_directories(path):
@@ -31,7 +41,7 @@ apps_list = list_directories(apps_base_dir)
 for app in apps_list:
     app_path = os.path.join(apps_base_dir, app)
 
-    if os.path.isdir(app_path) and app != '__init__.py':
+    if os.path.isdir(app_path):
         pycache_app_dir = os.path.join(app_path, '__pycache__')
         migrations_dir = os.path.join(app_path, 'migrations')
 
@@ -39,5 +49,6 @@ for app in apps_list:
         remove_directory(migrations_dir)
 
         create_directory(migrations_dir)
+        create_init_file(migrations_dir)
 
-print("process finished")
+print("Process finished")

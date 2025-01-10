@@ -13,11 +13,10 @@ import {
 } from "./home/components";
 
 import { toggleDarkMode } from "@/infrastructure/helpers/toggle-dark-mode";
-import PageController from "./page.controller";
-import CategoryService from "./shared/services/category.service";
 import { useAppDispatch } from "./shared/hooks";
 
-const controller: PageController = new PageController(new CategoryService());
+import controller from "./page.controller";
+
 
 export default function Home() {
   const dispatch = useAppDispatch();

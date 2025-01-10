@@ -5,6 +5,8 @@ import { IBlogPostAPI, IPostApi } from "@/domain/interfaces/blog.api.interface";
 
 import CategoryService from "../shared/services/category.service";
 import BlogService from "../shared/services/blog.service";
+import BlogDataSourceImpl from "@/infrastructure/datasources/blog.datasource.impl";
+import BlogRepositoryImpl from "@/infrastructure/repositories/blog.repository.impl";
 
 class BlogPageController {
     public constructor(
@@ -27,4 +29,13 @@ class BlogPageController {
     }
 }
 
-export default BlogPageController;
+const repository: BlogRepositoryImpl = new BlogRepositoryImpl(
+    new BlogDataSourceImpl()
+);
+  
+const blogPageController: BlogPageController = new BlogPageController(
+    new CategoryService(),
+    new BlogService(repository)
+);
+
+export default blogPageController;

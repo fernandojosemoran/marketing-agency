@@ -1,6 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit";
-import CategoryService from "./shared/services/category.service";
 import { GET_CATEGORIES_SUCCESS } from "./shared/provider/slices/categories/categories.slice";
+
+import CategoryService from "./shared/services/category.service";
 
 class PageController {
     public constructor(
@@ -13,4 +14,6 @@ class PageController {
     }
 }
 
-export default PageController;
+const controller = new PageController(new CategoryService());
+
+export default controller;

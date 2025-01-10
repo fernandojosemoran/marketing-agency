@@ -10,25 +10,10 @@ import { toggleDarkMode } from "@/infrastructure/helpers/toggle-dark-mode";
 import { BLOG_LIST_CATEGORIES } from "@/app/shared/provider/slices/blog/blog-list-categories.slice";
 import { GET_BLOG_LIST_CATEGORIES_PAGE } from "@/app/shared/provider/slices/blog/blog-list-categories-page.slice";
 
-import CategorySlugPageController from "./category-slug-page.controller";
-import BlogRepositoryImpl from "@/infrastructure/repositories/blog.repository.impl";
-import BlogDataSourceImpl from "@/infrastructure/datasources/blog.datasource.impl";
-import BlogService from "@/app/shared/services/blog.service";
 import CategoriesHeader from "../../components/categories-header/CategoriesHeader";
 import BlogList from "../../components/blog-list/BlogList";
-import CategoryService from "@/app/shared/services/category.service";
+import controller from "./category-slug-page.controller";
 
-const blogRepository: BlogRepositoryImpl = new BlogRepositoryImpl(
-  new BlogDataSourceImpl()
-);
-
-const blogService: BlogService = new BlogService(blogRepository);
-const categoryService: CategoryService = new CategoryService();
-
-const controller: CategorySlugPageController = new CategorySlugPageController(
-  blogService,
-  categoryService
-);
 
 function SlugPage() {
   const { slug } = useParams();

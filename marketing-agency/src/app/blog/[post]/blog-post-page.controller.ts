@@ -1,5 +1,7 @@
 import { IDetailPostApi } from "@/domain/interfaces/blog.api.interface";
 import BlogService from "@/app/shared/services/blog.service";
+import BlogDataSourceImpl from "@/infrastructure/datasources/blog.datasource.impl";
+import BlogRepositoryImpl from "@/infrastructure/repositories/blog.repository.impl";
 
 class BlogPostPageController {
     public constructor(
@@ -11,4 +13,13 @@ class BlogPostPageController {
     }
 }
 
-export default BlogPostPageController;
+const blogRepository: BlogRepositoryImpl = new BlogRepositoryImpl(
+  new BlogDataSourceImpl()
+);
+
+const blogService: BlogService = new BlogService(blogRepository);
+const blogPostPageController: BlogPostPageController = new BlogPostPageController(
+  blogService
+);
+
+export default blogPostPageController;

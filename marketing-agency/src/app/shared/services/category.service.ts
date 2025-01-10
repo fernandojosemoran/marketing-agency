@@ -1,10 +1,10 @@
 import { ICategoryListAPI } from "@/domain/interfaces/category.api.interface";
-import { Env } from "@/infrastructure/constants";
+import { env } from "@/infrastructure/constants";
 
 import axios, { AxiosRequestConfig } from "axios";
 
 // hidden dependencies
-const REACT_APP_API_URL: string = Env.REACT_APP_API_URL;
+const REACT_APP_API_URL: string = env.NEXT_PUBLIC_CLIENT_BACKEND_API_URL;
 
 class CategoryService {
     private readonly config: AxiosRequestConfig = {

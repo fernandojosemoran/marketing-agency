@@ -1,15 +1,38 @@
-node_modules
-.next
-.git
-.env
-bun.lockb
-README.md
-dockerfile.django
-dockerfile.web
-docker-compose.yaml
+
+
+# Frontend
+
+marketing-agency/node_modules
+marketing-agency/.next
+marketing-agency/.git
+marketing-agency/.env
+marketing-agency/.env.example
+marketing-agency/.env.test
+marketing-agency/.env.production
+marketing-agency/.env.production.example
+marketing-agency/READMe.md
+marketing-agency/bun.lockb
+marketing-agency/README.md
+marketing-agency/dockerfile.django
+marketing-agency/dockerfile.web
+marketing-agency/docker-compose.yaml
+
+# Backend
+
 backend/env
 backend/media
 backend/static
 backend/db.sqlite3
 backend/core/.env
+backend/node_modules
+backend/.env.example
+backend/pnpm-lock.yaml
+backend/README.md
+backend/dist
+backend/sql
+backend/.env
+backend/.env.example
+backend/.env.test
+backend/.env.production
+backend/.env.production.example
 

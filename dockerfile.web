@@ -2,7 +2,7 @@ FROM node:latest
 
 WORKDIR /web
 
-COPY . . 
+COPY marketing-agency/ . 
 
 RUN npm install && npm run build
 

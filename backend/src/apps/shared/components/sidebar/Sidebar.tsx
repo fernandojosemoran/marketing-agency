@@ -1,10 +1,10 @@
 import { Fragment, useState } from 'react';
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
-import OneLogo from "@/apps/shared/assets/One.svg";
 
+import OneLogo from "@/apps/shared/assets/One.svg";
 import controller from "./sidebar.controller";
-import CloseIcon from '../icons/close';
 import BarsIcon from '../icons/Bars';
+import CloseIcon from '../icons/Close';
 
 interface IDialogSidebarProps {
   setSidebarOpen: (open: boolean) => void;
@@ -196,7 +196,7 @@ function ContentBody() {
 }
 
 function Sidebar() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [ sidebarOpen, setSidebarOpen ] = useState(false);
 
   return (
     <>

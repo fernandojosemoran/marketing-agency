@@ -1,3 +1,12 @@
-export class Env {
-    public static readonly REACT_APP_API_URL: string = process.env.REACT_APP_API_URL ?? "http://localhost:80/api";
-}
+import { createEnv } from "@t3-oss/env-nextjs";
+import { z } from "zod";
+
+export const env = createEnv({
+  server: {},
+  client: {
+    NEXT_PUBLIC_CLIENT_BACKEND_API_URL: z.string().url(),
+  },
+  runtimeEnv: {
+    NEXT_PUBLIC_CLIENT_BACKEND_API_URL: process.env.NEXT_PUBLIC_CLIENT_BACKEND_API_URL,
+  },
+});
